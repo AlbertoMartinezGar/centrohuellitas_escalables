@@ -1,0 +1,26 @@
+a:hover{
+    transition: all 0.2s;
+    transform: scale(1.05, 1.05);
+    text-decoration: none;
+    color: #9ed8db;
+}
+
+.section{
+    width: 49%;
+    background-color: #467599;
+    border-radius: 4px;
+    font-size: 1.2em;
+    color: white;
+}
+
+
+.section-title{
+    margin-left: 30px;
+    margin-top: 15px;
+    font-weight: 700;
+}
+
+.arrow-icon{
+    font-size: 1.3em;
+    margin-right: 30px;
+}
