@@ -6,10 +6,10 @@ import "./InfoContainer.css";
 const InfoContainer = ({category = "eventos"}) => {
     let message = "";
     if(category === "eventos"){
-        message = "Estos son los ultimos eventos registrados";
+        message = "Estos son los últimos eventos registrados";
     }
     else if (category === "mascotas") {
-        message = "Estas son las ultimas mascotas registradas";
+        message = "Estas son las últimas mascotas registradas";
     }
 
     return(
