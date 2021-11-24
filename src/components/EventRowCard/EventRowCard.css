@@ -1,0 +1,43 @@
+.imagen-row{
+    width: 200px;
+    height: 200px;
+}
+
+.paw-icon-row{
+    font-size: 5em;
+}
+
+.icon-row{
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+}
+
+.icon-row:hover{
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.edit{
+    color: rgba(70, 117, 153, .8);
+}
+
+.edit:hover{
+    color: rgba(70, 117, 153, 1);
+}
+
+.delete{
+    color: rgba(153, 106, 70, .8);
+}
+
+.delete:hover{
+    color: rgba(153, 106, 70, 1)
+}
+
+.primary{
+    color: #1D3354;
+}
+
+.secondary{
+    color: #467599;
+}

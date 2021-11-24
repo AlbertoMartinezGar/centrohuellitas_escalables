@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FileUploader from "../FileUploader";
 import Header from "../Header";
 
 const CreateEvent = () => {
@@ -50,7 +49,14 @@ const CreateEvent = () => {
                         onChange={(e) => setDescripcion(e.target.value)}
                     />
                 <br />Imagen: 
-                        <input
+                        {selectedImage && (
+                            <div>
+                            <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
+                            <br />
+                            <button onClick={()=>setSelectedImage(null)}>Remove</button>
+                            </div>
+                        )}
+                        <br /><input
                         type="file"
                         name="image"
                         onChange={(event) => {
