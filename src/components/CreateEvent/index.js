@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FileUploader from "../FileUploader";
 import Header from "../Header";
 
 const CreateEvent = () => {
@@ -6,6 +7,9 @@ const CreateEvent = () => {
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState("");
     const [descripcion, setDescripcion] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    console.log(selectedFile);
 
     const handleSubmit = () => {
 
@@ -29,7 +33,7 @@ const CreateEvent = () => {
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-        }
+    }
 
 
     return(
@@ -50,7 +54,7 @@ const CreateEvent = () => {
                         onChange={(e) => setDescripcion(e.target.value)}
                     />
                 <br />Imagen: 
-                        <input type="file" name="imagen" />
+                        <FileUploader setSelectedFile={setSelectedFile}/>
                 <br /><br /><button type="submit">Agendar</button>
             </form>
             
