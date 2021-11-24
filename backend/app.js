@@ -2,10 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const upload = require("./middleware/upload")
+
 const Event = require("./models/event");
 
 const port = 3030;
 const app = express();
+app.use('/uploads', express.static('uploads'));
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
@@ -44,13 +47,16 @@ app.get("/api/events", (req, res, next) => {
   });
 }); 
 
-app.post("/api/newevent", (req, res, next) => {
-  console.log({req});
-  const event = new Event({
+app.post("/api/addevent", upload.single('image'), (req, res, next) => {
+  let event = new Event({
     nombre: req.body.nombre,
     fecha: req.body.fecha,
     descripcion: req.body.descripcion
   });
+  if(req.file){
+    console.log("tenemos path");
+    event.image = req.file.path;
+  }
   event.save();
   res.status(201).json({
     message: "Post added successfully"
