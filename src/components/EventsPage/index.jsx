@@ -28,6 +28,7 @@ const EventsPage = () => {
                         <p><b>{evento.nombre}</b></p>
                         <p>{evento.fecha}</p>
                         <p>{evento.descripcion}</p>
+                        <p>{evento.image && <img src={"http://localhost:3030/"+evento.image} width="100px" alt="img"/>}</p>
                     </div>
                 )) 
             }

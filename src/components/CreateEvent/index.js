@@ -7,32 +7,28 @@ const CreateEvent = () => {
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
-    console.log(selectedFile);
+    //console.log(selectedImage);
 
     const handleSubmit = () => {
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-            "nombre": nombre,
-            "fecha": fecha,
-            "descripcion": descripcion
-        });
+        let TempPath = URL.createObjectURL(selectedImage);
+        var formdata = new FormData();
+        formdata.append("nombre", nombre);
+        formdata.append("fecha", fecha);
+        formdata.append("descripcion", descripcion);
+        formdata.append("image", selectedImage, TempPath+".jpg");
 
         var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
         };
 
-        fetch("http://localhost:3030/api/newevent", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+        fetch("http://localhost:3030/api/addevent", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
     }
 
 
@@ -54,7 +50,14 @@ const CreateEvent = () => {
                         onChange={(e) => setDescripcion(e.target.value)}
                     />
                 <br />Imagen: 
-                        <FileUploader setSelectedFile={setSelectedFile}/>
+                        <input
+                        type="file"
+                        name="image"
+                        onChange={(event) => {
+                            //console.log(event.target.files[0]);
+                            setSelectedImage(event.target.files[0]);
+                        }}
+            />
                 <br /><br /><button type="submit">Agendar</button>
             </form>
             
