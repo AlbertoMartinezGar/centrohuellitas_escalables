@@ -44,18 +44,20 @@ app.get("/api/events", (req, res, next) => {
   });
 }); 
 
-/* app.post("/api/posts", (req, res, next) => {
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content
+app.post("/api/newevent", (req, res, next) => {
+  console.log({req});
+  const event = new Event({
+    nombre: req.body.nombre,
+    fecha: req.body.fecha,
+    descripcion: req.body.descripcion
   });
-  post.save();
+  event.save();
   res.status(201).json({
     message: "Post added successfully"
   });
 });
 
-app.delete("/api/posts/:id", (req, res, next) => {
+/*app.delete("/api/posts/:id", (req, res, next) => {
   Post.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: "Post deleted!" });
