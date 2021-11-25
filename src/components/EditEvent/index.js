@@ -33,20 +33,8 @@ const EditEvent = () => {
     }, [])
 
     const handleSubmit = () => {
-        let TempPath = URL.createObjectURL(selectedImage);
-        var formdata = new FormData();
-        formdata.append("nombre", nombre);
-        formdata.append("fecha", fecha);
-        formdata.append("descripcion", descripcion);
-        formdata.append("image", selectedImage, TempPath+".jpg");
-
-        var requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost:3030/api/addevent", requestOptions)
+         const urlPut = `http://localhost:3030/api/editevent/id=${id}?nombre=${nombre}&fecha=${fecha}&descripcion=${descripcion}`;
+        fetch(urlPut, {method: "PUT"})
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -58,32 +46,32 @@ const EditEvent = () => {
             <Header />
             <div className="container">
                 <div className="row mt-3 mb-3 justify-content-center">
-                    <h2 className="primary">Agenda un nuevo evento</h2>
+                    <h2 className="primary">Editar un evento</h2>
                 </div>
                 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="nombre" className="primary">Nombre del evento:</label>
+                        <label htmlFor="nombre" className="primary">Nuevo nombre del evento:</label>
                         <input type="text" name="nombre" className="form-control" value={nombre && nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="fecha" className="primary">Fecha del evento:</label>
+                        <label htmlFor="fecha" className="primary">Nueva fecha del evento:</label>
                         <input type="text" name="fecha" className="form-control" value={fecha && fecha}
                             onChange={(e) => setFecha(e.target.value)}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="descripcion" className="primary">Descripción del evento:</label>
+                        <label htmlFor="descripcion" className="primary">Nueva descripción del evento:</label>
                         <textarea name="descripcion" className="form-control" value={descripcion && descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="image" className="primary">Añade una imagen al evento</label>
                         <div className="row">
                             <div className="col-6 d-flex justify-content-center align-items-center">
@@ -119,8 +107,8 @@ const EditEvent = () => {
                                 />
                             </div>
                         </div>
-                    </div>                      
-                    <button type="submit" className="btn btn-primary sticky-button">Agendar evento</button>
+                    </div> */}                      
+                    <button type="submit" className="btn btn-primary sticky-button">Editar evento</button>
                 </form>
             </div>
             
