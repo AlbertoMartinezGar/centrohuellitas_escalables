@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Header from "../Header";
 
+import "./CreateEvent.css";
+
 const CreateEvent = () => {
 
     const [nombre, setNombre] = useState("");
@@ -19,9 +21,9 @@ const CreateEvent = () => {
         formdata.append("image", selectedImage, TempPath+".jpg");
 
         var requestOptions = {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
         };
 
         fetch("http://localhost:3030/api/addevent", requestOptions)
@@ -34,38 +36,67 @@ const CreateEvent = () => {
     return(
         <>
             <Header />
-            <p>Agrega un nuevo evento</p>
-            <form onSubmit={handleSubmit}>
-                Nombre del evento: 
-                    <input type="text" name="nombre"
-                        onChange={(e) => setNombre(e.target.value)}
-                    />
-                <br />Fecha del evento: 
-                    <input type="text" name="fecha"
-                        onChange={(e) => setFecha(e.target.value)}
-                    />
-                <br />Descripcion del evento: 
-                    <textarea name="descripcion"
-                        onChange={(e) => setDescripcion(e.target.value)}
-                    />
-                <br />Imagen: 
-                        {selectedImage && (
-                            <div>
-                            <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-                            <br />
-                            <button onClick={()=>setSelectedImage(null)}>Remove</button>
+            <div className="container">
+                <div className="row mt-3 mb-3 justify-content-center">
+                    <h2 className="primary">Agenda un nuevo evento</h2>
+                </div>
+                
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label for="nombre" className="primary">Nombre del evento:</label>
+                        <input type="text" name="nombre" className="form-control"
+                            onChange={(e) => setNombre(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label for="fecha" className="primary">Fecha del evento:</label>
+                        <input type="text" name="fecha" className="form-control"
+                            onChange={(e) => setFecha(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label for="descripcion" className="primary">Descripción del evento:</label>
+                        <textarea name="descripcion" class="form-control"
+                            onChange={(e) => setDescripcion(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label for="image" className="primary">Añade una imagen al evento</label>
+                        <div className="row">
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                                {selectedImage ? (
+                                    <div> 
+                                        <div className="row justify-content-center mb-3">
+                                            <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
+                                        </div>
+                                        <div className="row justify-content-center">
+                                            <button 
+                                                onClick={()=>setSelectedImage(null)} 
+                                                className="btn btn-primary"
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : <h2>Preview de la imagen</h2>}
                             </div>
-                        )}
-                        <br /><input
-                        type="file"
-                        name="image"
-                        onChange={(event) => {
-                            //console.log(event.target.files[0]);
-                            setSelectedImage(event.target.files[0]);
-                        }}
-            />
-                <br /><br /><button type="submit">Agendar</button>
-            </form>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                                <input
+                                    type="file"
+                                    name="image"
+                                    onChange={(event) => {
+                                        setSelectedImage(event.target.files[0]);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>                      
+                    <button type="submit" className="btn btn-primary sticky-button">Agendar evento</button>
+                </form>
+            </div>
             
         </>
     )

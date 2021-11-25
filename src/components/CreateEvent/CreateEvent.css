@@ -1,0 +1,18 @@
+form > .form-group > label{
+    font-size: 20px;
+}
+
+.primary{
+    color: #1D3354;
+}
+
+.secondary{
+    color: #467599;
+}
+
+.sticky-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    color: white;
+}
