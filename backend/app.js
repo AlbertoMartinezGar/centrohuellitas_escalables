@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const upload = require("./middleware/upload")
 
 const Event = require("./models/event");
+const Pet = require("./models/pet");
 
 const port = 3030;
 const app = express();
@@ -91,8 +92,10 @@ app.post("/api/addevent", upload.single('image'), (req, res, next) => {
     descripcion: req.body.descripcion
   });
   if(req.file){
-    console.log("tenemos path");
     event.image = req.file.path;
+  }
+  else{
+    event.image = "undefined";
   }
   event.save();
   res.status(201).json({
@@ -107,5 +110,14 @@ app.delete("/api/deleteevent/:id", (req, res, next) => {
     res.status(200).json({ message: "Event deleted!" });
   });
 });
+
+/**************MASCOTAS******************* */
+//Obtener todas las mascotas
+app.get("/api/pets", (req, res, next) => {
+  Pet.find({}).then(documents => {
+    console.log(documents);
+    res.send(documents);
+  });
+}); 
 
 module.exports = app;

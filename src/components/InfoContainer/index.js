@@ -1,15 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 
 import "./InfoContainer.css";
 
 const InfoContainer = ({category = "eventos"}) => {
     let message = "";
+    let route = "";
     if(category === "eventos"){
         message = "Estos son los últimos eventos registrados";
+        route = "/eventos";
     }
     else if (category === "mascotas") {
         message = "Estas son las últimas mascotas registradas";
+        route = "/mascotas"
     }
 
     return(
@@ -31,7 +35,7 @@ const InfoContainer = ({category = "eventos"}) => {
                 </div>
             </div>
             <div className="row d-flex justify-content-end">
-                <button className="btn btn-primary mt-3">Ver todo</button>
+                <Link to={route} className="btn btn-primary mt-3">Ver todo</Link>
             </div>
         </>
         

@@ -24,7 +24,7 @@ const EventRowCard = ({
                     <h5 className="secondary"><b className="primary">Nombre del evento: </b>{nombre}</h5>
                     <p className="secondary"><b className="primary">Fecha del evento: </b>{fecha}</p>
                     <p className="primary"><b>Descripción del evento: </b></p>
-                    <p className="secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim omnis earum et rem est maiores inventore amet dignissimos quam illo eaque nemo, tenetur nisi! Temporibus ad ex blanditiis facere rem!</p>
+                    <p className="secondary">{descripcion}</p>
                 </div>
                 <div className="col-2 my-3 d-flex justify-content-end align-items-center">
                     <div className="btn-group mr-2">

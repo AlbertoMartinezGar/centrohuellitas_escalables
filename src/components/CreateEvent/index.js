@@ -18,7 +18,12 @@ const CreateEvent = () => {
         formdata.append("nombre", nombre);
         formdata.append("fecha", fecha);
         formdata.append("descripcion", descripcion);
-        formdata.append("image", selectedImage, TempPath+".jpg");
+        if(selectedImage !== null){
+            formdata.append("image", selectedImage, TempPath+".jpg");
+        }   
+        else{
+            formdata.append("image", "no-image", "undefined");
+        }
 
         var requestOptions = {
             method: 'POST',

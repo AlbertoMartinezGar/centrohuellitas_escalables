@@ -7,7 +7,7 @@ const EditEvent = () => {
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+    //const [selectedImage, setSelectedImage] = useState(null);
 
     const { id } = useParams();
 
@@ -18,14 +18,14 @@ const EditEvent = () => {
         setNombre(nombre);
         setFecha(fecha);
         setDescripcion(descripcion);
-        if(image){
+        /* if(image){
             if(image.includes("undefined")){
                 setSelectedImage(null);
             }
             else{
                 setSelectedImage("http://localhost:3030/"+image);
             }
-        }
+        } */
     }
 
     useEffect(() => {
@@ -70,6 +70,9 @@ const EditEvent = () => {
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
                         />
+                    </div>
+                    <div className="row mt-4 justify-content-center">
+                        <h4 className="primary">Por el momento no es posible editar la imagen :c</h4>
                     </div>
                     {/* <div className="form-group">
                         <label htmlFor="image" className="primary">Añade una imagen al evento</label>
