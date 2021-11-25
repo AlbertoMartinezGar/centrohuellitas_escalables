@@ -2,10 +2,12 @@ import React from "react";
 import "./EventRowCard.css"
 
 const EventRowCard = ({
+    id,
     nombre,
     fecha,
     descripcion,
-    imagen
+    imagen,
+    deleteEvent
 }) => {
     return(
         <div className="card mt-3 mb-1">
@@ -13,7 +15,7 @@ const EventRowCard = ({
                 <div className="col-4 my-3 d-flex justify-content-center align-items-center">
                     {
                     imagen.includes("undefined")
-                        ? (<i class="fas fa-paw paw-icon-row"></i>)
+                        ? (<i className="fas fa-paw paw-icon-row"></i>)
                         : (<img src={imagen} className="imagen-row" alt="img"/>)
                     }
                 </div>
@@ -25,8 +27,10 @@ const EventRowCard = ({
                 </div>
                 <div className="col-2 my-3 d-flex justify-content-end align-items-center">
                     <div className="btn-group mr-2">
-                        <button class="fas fa-edit mr-1 icon-row edit"></button>
-                        <button class="fas fa-trash-alt ml-1 icon-row delete"></button>
+                        <button className="fas fa-edit mr-1 icon-row edit"></button>
+                        <button className="fas fa-trash-alt ml-1 icon-row delete"
+                            onClick={(e) => deleteEvent(e, id)}
+                        ></button>
                     </div>
                 </div>
             </div>

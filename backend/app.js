@@ -63,11 +63,11 @@ app.post("/api/addevent", upload.single('image'), (req, res, next) => {
   });
 });
 
-/*app.delete("/api/posts/:id", (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id }).then(result => {
+app.delete("/api/deleteevent/:id", (req, res, next) => {
+  Event.findOneAndDelete({ _id: req.params.id }).then(result => {
     console.log(result);
-    res.status(200).json({ message: "Post deleted!" });
+    res.status(200).json({ message: "Event deleted!" });
   });
-}); */
+});
 
 module.exports = app;

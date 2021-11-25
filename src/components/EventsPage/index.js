@@ -16,6 +16,14 @@ const EventsPage = () => {
         setEvents(datos);
     }
 
+    const deleteEvent = async (_evento, id) => {
+        console.log("Borrando al id - " + id);
+        const respuesta = await fetch("http://localhost:3030/api/deleteevent/" + id, {method: "DELETE"});
+        if(respuesta){
+            listEvents();
+        }
+    }
+
     useEffect( () => {
         listEvents();
     }, []);
@@ -30,10 +38,12 @@ const EventsPage = () => {
                     events && events.map((evento, _index) => (
                         <EventRowCard 
                             key={`event-${_index}`}
+                            id={evento._id}
                             nombre={evento.nombre}
                             fecha={evento.fecha}
                             descripcion={evento.descripcion}
                             imagen={"http://localhost:3030/"+evento.image}
+                            deleteEvent={deleteEvent}
                         />
                     )) 
                 }
