@@ -7,6 +7,7 @@ import Homepage from './components/Homepage';
 import Pets from './components/Pets';
 import EventsPage from './components/EventsPage';
 import CreateEvent from './components/CreateEvent';
+import EditEvent from './components/EditEvent';
 import './App.css';
 
 
@@ -16,7 +17,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/mascotas" element={<Pets />} />
         <Route path="/eventos" element={<EventsPage />} />  
-        <Route path="/agregarevento" element={<CreateEvent />} />   
+        <Route path="/agregarevento" element={<CreateEvent />} /> 
+        <Route path="/editarevento/:id" element={<EditEvent />} />
       </Routes>
      
   );

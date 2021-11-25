@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./EventRowCard.css"
 
 const EventRowCard = ({
@@ -27,7 +28,7 @@ const EventRowCard = ({
                 </div>
                 <div className="col-2 my-3 d-flex justify-content-end align-items-center">
                     <div className="btn-group mr-2">
-                        <button className="fas fa-edit mr-1 icon-row edit"></button>
+                        <Link to={`/editarevento/${id}`} className="fas fa-edit mr-1 icon-row edit"></Link>
                         <button className="fas fa-trash-alt ml-1 icon-row delete"
                             onClick={(e) => deleteEvent(e, id)}
                         ></button>

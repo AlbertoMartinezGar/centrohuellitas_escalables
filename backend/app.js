@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//Obtener todos los eventos
 app.get("/api/events", (req, res, next) => {
   Event.find({}).then(documents => {
     console.log(documents);
@@ -47,6 +48,42 @@ app.get("/api/events", (req, res, next) => {
   });
 }); 
 
+//Obtener un solo evento
+app.get("/api/event/:id", (req, res, next) => {
+  let string = req.params.id;
+  const stringSplited = string.split("=");
+  const id = stringSplited[1];
+  Event.findById(id, (err, items) => {
+    if (err){
+      console.log("error");
+      res.status(500).send(err)
+    }
+    res.status(200).json(items);
+  })
+});
+
+//Editar un evento
+app.put("/api/editevent/:id", (req, res, next) => {
+  let string = req.params.id;
+  const stringSplited = string.split("=");
+  const id = stringSplited[1];
+  Event.findByIdAndUpdate(id,{
+    nombre: req.query.nombre,
+    fecha: req.query.fecha,
+    descripcion: req.query.descripcion
+  }, function (err){
+    if(err){
+      return res.send(err);
+    }
+    else{
+      res.status(200).json({
+        message: "¡Evento editado con éxito!"
+      });
+    }    
+  })
+})
+
+//Añadir un nuevo evento
 app.post("/api/addevent", upload.single('image'), (req, res, next) => {
   let event = new Event({
     nombre: req.body.nombre,
@@ -63,6 +100,7 @@ app.post("/api/addevent", upload.single('image'), (req, res, next) => {
   });
 });
 
+//Eliminar un evento
 app.delete("/api/deleteevent/:id", (req, res, next) => {
   Event.findOneAndDelete({ _id: req.params.id }).then(result => {
     console.log(result);
