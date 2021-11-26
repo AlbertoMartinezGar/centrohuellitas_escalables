@@ -15,6 +15,14 @@ const Pets = () => {
         setPets(datos);
     }
 
+    const deletePet = async (_evento, id) => {
+        console.log("Borrando al id - " + id);
+        const respuesta = await fetch("http://localhost:3030/api/deletepet/" + id, {method: "DELETE"});
+        if(respuesta){
+            listPets();
+        }
+    }
+
     useEffect(() => {
         listPets();
     }, [])
@@ -22,12 +30,11 @@ const Pets = () => {
     return(
         <>
             <Header/>
-            <Link to="/agregarevento" className="btn btn-pimary sticky-button">Agregar una nueva mascota</Link>
+            <Link to="/agregarmascota" className="btn btn-pimary sticky-button">Agregar una nueva mascota</Link>
             <div className="container">
                 <div className="row mt-5 justify-content-center">
                 {
                     pets && pets.map((pet, _index) => (
-                        
                         <PetCard
                             key={`pet-${_index}`}
                             id={pet._id}
@@ -35,6 +42,8 @@ const Pets = () => {
                             descripcion={pet.descripcion}
                             edad={pet.edad}
                             sexo={pet.sexo}
+                            image={"http://localhost:3030/"+pet.image}
+                            deletePet={deletePet}
                         />
                         
                      ))

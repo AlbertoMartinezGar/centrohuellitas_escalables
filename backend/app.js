@@ -120,4 +120,67 @@ app.get("/api/pets", (req, res, next) => {
   });
 }); 
 
+//Obtener una sola mascota
+app.get("/api/pet/:id", (req, res, next) => {
+  let string = req.params.id;
+  const stringSplited = string.split("=");
+  const id = stringSplited[1];
+  Pet.findById(id, (err, items) => {
+    if (err){
+      console.log("error");
+      res.status(500).send(err)
+    }
+    res.status(200).json(items);
+  })
+});
+
+//Editar una mascota
+app.put("/api/editpet/:id", (req, res, next) => {
+  let string = req.params.id;
+  const stringSplited = string.split("=");
+  const id = stringSplited[1];
+  Pet.findByIdAndUpdate(id,{
+    nombre: req.query.nombre,
+    descripcion: req.query.descripcion,
+    edad: req.query.edad,
+    sexo: req.query.sexo
+  }, function (err){
+    if(err){
+      return res.send(err);
+    }
+    else{
+      res.status(200).json({
+        message: "¡Mascota editado con éxito!"
+      });
+    }    
+  })
+})
+
+//Añadir una nueva mascota
+app.post("/api/addpet", upload.single('image'), (req, res, next) => {
+  let pet = new Pet({
+    nombre: req.body.nombre,
+    descripcion: req.body.descripcion,
+    edad: req.body.edad,
+    sexo: req.body.sexo
+  });
+  if(req.file){
+    pet.image = req.file.path;
+  }
+  else{
+    pet.image = "undefined";
+  }
+  pet.save();
+  res.status(201).json({
+    message: "Pet added successfully"
+  });
+});
+
+app.delete("/api/deletepet/:id", (req, res, next) => {
+  Pet.findOneAndDelete({ _id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Pet deleted!" });
+  });
+});
+
 module.exports = app;

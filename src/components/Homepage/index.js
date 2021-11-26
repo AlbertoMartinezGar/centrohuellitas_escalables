@@ -14,7 +14,7 @@ const Homepage = () => {
                 <h1>Todas las secciones</h1>
                 <div className="row mt-5 d-flex justify-content-between">
                     <HomeSection name="Todas las mascotas" route="/mascotas"/>
-                    <HomeSection name="Registrar nueva mascota"/>
+                    <HomeSection name="Registrar nueva mascota" route="/agregarmascota"/>
                 </div>
                 <div className="row mt-3 d-flex justify-content-between">
                     <HomeSection name="Todos los eventos" route="/eventos"/>
