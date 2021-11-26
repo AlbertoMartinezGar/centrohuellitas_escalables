@@ -24,7 +24,7 @@ const Pets = () => {
             <Header/>
             <Link to="/agregarevento" className="btn btn-pimary sticky-button">Agregar una nueva mascota</Link>
             <div className="container">
-                <div className="row row-cols-3 mt-5 justify-content-center">
+                <div className="row mt-5 justify-content-center">
                 {
                     pets && pets.map((pet, _index) => (
                         
