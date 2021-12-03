@@ -12,7 +12,7 @@ const EditPet = () => {
     const { id } = useParams();
 
     const getPet = async () => {
-        const respuesta  = await fetch(`http://localhost:3030/api/pet/id=${id}`);
+        const respuesta  = await fetch(`http://localhost:3030/api/pet/${id}`);
         const mascota = await respuesta.json();
         const {nombre, descripcion, edad, sexo} = mascota;
         setNombre(nombre);

@@ -3,8 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const Event = require("./models/event");
-
 const app = express();
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
@@ -12,6 +10,7 @@ app.use(cors());
 
 
 app.use(require("./routes/pet.route"));
+app.use(require("./routes/event.route"));
 //app.use('/uploads', express.static('uploads'));
 
 const port = 3030;
@@ -29,80 +28,5 @@ mongoose
   .catch(() => {
     console.log("Connection failed!");
   });
-
-
-
-
-
-//Obtener todos los eventos
-app.get("/api/events", (req, res, next) => {
-  Event.find({}).then(documents => {
-    console.log(documents);
-    res.send(documents);
-  });
-}); 
-
-//Obtener un solo evento
-app.get("/api/event/:id", (req, res, next) => {
-  let string = req.params.id;
-  const stringSplited = string.split("=");
-  const id = stringSplited[1];
-  Event.findById(id, (err, items) => {
-    if (err){
-      console.log("error");
-      res.status(500).send(err)
-    }
-    res.status(200).json(items);
-  })
-});
-
-//Editar un evento
-app.put("/api/editevent/:id", (req, res, next) => {
-  let string = req.params.id;
-  const stringSplited = string.split("=");
-  const id = stringSplited[1];
-  Event.findByIdAndUpdate(id,{
-    nombre: req.query.nombre,
-    fecha: req.query.fecha,
-    descripcion: req.query.descripcion
-  }, function (err){
-    if(err){
-      return res.send(err);
-    }
-    else{
-      res.status(200).json({
-        message: "¡Evento editado con éxito!"
-      });
-    }    
-  })
-})
-
-//Añadir un nuevo evento
-/* app.post("/api/addevent", upload.single('image'), (req, res, next) => {
-  let event = new Event({
-    nombre: req.body.nombre,
-    fecha: req.body.fecha,
-    descripcion: req.body.descripcion
-  });
-  if(req.file){
-    event.image = req.file.path;
-  }
-  else{
-    event.image = "undefined";
-  }
-  event.save();
-  res.status(201).json({
-    message: "Post added successfully"
-  });
-}); */
-
-//Eliminar un evento
-app.delete("/api/deleteevent/:id", (req, res, next) => {
-  Event.findOneAndDelete({ _id: req.params.id }).then(result => {
-    console.log(result);
-    res.status(200).json({ message: "Event deleted!" });
-  });
-});
-
 
 module.exports = app;

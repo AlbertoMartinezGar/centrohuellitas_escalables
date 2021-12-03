@@ -12,7 +12,7 @@ const PetCard = ({
     image,
     deletePet
 }) => {
-    
+    console.log(image);
     return(
         <div className="col-3 mt-4 mx-4">
             <div className="card h-100">

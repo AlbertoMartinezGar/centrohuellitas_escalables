@@ -17,7 +17,7 @@ const Pets = () => {
 
     const deletePet = async (_evento, id) => {
         console.log("Borrando al id - " + id);
-        const respuesta = await fetch("http://localhost:3030/api/deletepet/" + id);
+        const respuesta = await fetch("http://localhost:3030/api/deletepet/" + id, {method: "DELETE"});
         if(respuesta){
             listPets();
         }
@@ -42,7 +42,7 @@ const Pets = () => {
                             descripcion={pet.descripcion}
                             edad={pet.edad}
                             sexo={pet.sexo}
-                            image={"http://localhost:3030/"+pet.image}
+                            image={pet.image}
                             deletePet={deletePet}
                         />
                         

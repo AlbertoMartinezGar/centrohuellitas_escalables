@@ -9,27 +9,20 @@ const CreatePet = () => {
     const [descripcion, setDescripcion] = useState("");
     const [edad, setEdad] = useState("");
     const [sexo, setSexo] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagen, setImagen] = useState(null);
 
-    const handleSubmit = () => {
-        let TempPath = URL.createObjectURL(selectedImage);
-        var formdata = new FormData();
-        formdata.append("nombre", nombre);
-        formdata.append("descripcion", descripcion);
-        formdata.append("edad", edad);
-        formdata.append("sexo", sexo);
-        
-        if(selectedImage !== null){
-            formdata.append("image", selectedImage, TempPath+".jpg");
-        }   
-        else{
-            formdata.append("image", "no-image", "undefined");
-        }
+    const handleSubmit = (e) => {        
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
-            body: formdata,
-            redirect: 'follow'
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "edad": edad,
+                "sexo": sexo,
+                "image": imagen
+            })
         };
 
         fetch("http://localhost:3030/api/addpet", requestOptions)
@@ -90,9 +83,15 @@ const CreatePet = () => {
                         </div>
                         </div>
                     </div>
-                    
-                    
                     <div className="form-group">
+                        <label htmlFor="descripcion" className="primary">Link de imagen de la mascota:</label>
+                        <input type="text" name="descripcion" className="form-control"
+                            onChange={(e) => setImagen(e.target.value)}
+                            required
+                        />
+                    </div>
+                    
+                    {/* <div className="form-group">
                         <label htmlFor="image" className="primary">Añade una imagen de la mascota</label>
                         <div className="row">
                             <div className="col-6 d-flex justify-content-center align-items-center">
@@ -122,7 +121,7 @@ const CreatePet = () => {
                                 />
                             </div>
                         </div>
-                    </div>                      
+                    </div>              */}         
                     <button type="submit" className="btn btn-primary sticky-button">Agregar mascota</button>
                 </form>
             </div>

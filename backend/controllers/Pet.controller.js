@@ -7,7 +7,6 @@ module.exports = {
 },
 
  editPet: async(req, res) => {
-     console.log(req.body);
     res.json({
         pets: await PetService.editPet(req.body)
     })
@@ -20,9 +19,9 @@ module.exports = {
 },
 
  getOnePet: async(req, res) => {
-    res.json({
-        pets: await PetService.getOnePet(req.params.id)
-    })
+     console.log(req.params.id);
+     const onePet = await PetService.getOnePet(req.params.id)
+    res.json(onePet)
 },
 
  createPet: async(req, res) => {
