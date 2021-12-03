@@ -17,7 +17,7 @@ const Pets = () => {
 
     const deletePet = async (_evento, id) => {
         console.log("Borrando al id - " + id);
-        const respuesta = await fetch("http://localhost:3030/api/deletepet/" + id, {method: "DELETE"});
+        const respuesta = await fetch("http://localhost:3030/api/deletepet/" + id);
         if(respuesta){
             listPets();
         }
