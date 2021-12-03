@@ -7,18 +7,19 @@ const EditPet = () => {
     const [descripcion, setDescripcion] = useState("");
     const [edad, setEdad] = useState("");
     const [sexo, setSexo] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagen, setImagen] = useState(null);
 
     const { id } = useParams();
 
     const getPet = async () => {
         const respuesta  = await fetch(`http://localhost:3030/api/pet/${id}`);
         const mascota = await respuesta.json();
-        const {nombre, descripcion, edad, sexo} = mascota;
+        const {nombre, descripcion, edad, sexo, image} = mascota;
         setNombre(nombre);
         setDescripcion(descripcion);
         setEdad(edad);
         setSexo(sexo);
+        setImagen(image);
     }
 
     useEffect(() => {
@@ -27,9 +28,22 @@ const EditPet = () => {
 
     const handleSubmit = () => {
         
-        const urlPut = `http://localhost:3030/api/editpet/id=${id}?nombre=${nombre}&descripcion=${descripcion}&edad=${edad}&sexo=${sexo}`;
+        //const urlPut = `http://localhost:3030/api/editpet/id=${id}?nombre=${nombre}&descripcion=${descripcion}&edad=${edad}&sexo=${sexo}`;
 
-        fetch(urlPut, {method: "PUT"})
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "_id": id,
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "edad": edad,
+                "sexo": sexo,
+                "image": imagen
+            })
+        };
+
+        fetch("http://localhost:3030/api/editpet", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -87,9 +101,13 @@ const EditPet = () => {
                         </div>
                         </div>
                     </div>
-                    <div className="row mt-4 justify-content-center">
-                        <h4 className="primary">Por el momento no es posible editar la imagen :c</h4>
-                    </div>                   
+                    <div className="form-group">
+                        <label htmlFor="descripcion" className="primary">Link de imagen de la mascota:</label>
+                        <input type="text" name="descripcion" className="form-control" value={imagen}
+                            onChange={(e) => setImagen(e.target.value)}
+                            required
+                        />
+                    </div>                  
                     <button type="submit" className="btn btn-primary sticky-button">Editar la mascota</button>
                 </form>
             </div>
