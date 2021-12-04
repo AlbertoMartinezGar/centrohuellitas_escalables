@@ -7,25 +7,18 @@ const EditEvent = () => {
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    //const [selectedImage, setSelectedImage] = useState(null);
+    const [imagen, setImagen] = useState(null);
 
     const { id } = useParams();
 
     const getEvent = async () => {
-        const respuesta  = await fetch(`http://localhost:3030/api/event/id=${id}`);
+        const respuesta  = await fetch(`http://localhost:3030/api/event/${id}`);
         const evento = await respuesta.json();
         const {nombre, fecha, descripcion, image} = evento;
         setNombre(nombre);
         setFecha(fecha);
         setDescripcion(descripcion);
-        /* if(image){
-            if(image.includes("undefined")){
-                setSelectedImage(null);
-            }
-            else{
-                setSelectedImage("http://localhost:3030/"+image);
-            }
-        } */
+        setImagen(image);
     }
 
     useEffect(() => {
@@ -33,8 +26,19 @@ const EditEvent = () => {
     }, [])
 
     const handleSubmit = () => {
-         const urlPut = `http://localhost:3030/api/editevent/id=${id}?nombre=${nombre}&fecha=${fecha}&descripcion=${descripcion}`;
-        fetch(urlPut, {method: "PUT"})
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "_id": id,
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "fecha": fecha,
+                "image": imagen
+            })
+        };
+
+        fetch("http://localhost:3030/api/editevent", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -74,43 +78,13 @@ const EditEvent = () => {
                     <div className="row mt-4 justify-content-center">
                         <h4 className="primary">Por el momento no es posible editar la imagen :c</h4>
                     </div>
-                    {/* <div className="form-group">
-                        <label htmlFor="image" className="primary">Añade una imagen al evento</label>
-                        <div className="row">
-                            <div className="col-6 d-flex justify-content-center align-items-center">
-                                {selectedImage ? (
-                                    <div> 
-                                        <div className="row justify-content-center mb-3">
-                                            <img 
-                                                alt="not fount" 
-                                                width={"250px"} 
-                                                src={selectedImage ? 
-                                                        selectedImage : 
-                                                        URL.createObjectURL(selectedImage)} 
-                                            />
-                                        </div>
-                                        <div className="row justify-content-center">
-                                            <button 
-                                                onClick={()=>setSelectedImage(null)} 
-                                                className="btn btn-primary"
-                                            >
-                                                Remove
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : <h2>Preview de la imagen</h2>}
-                            </div>
-                            <div className="col-6 d-flex justify-content-center align-items-center">
-                                <input
-                                    type="file"
-                                    name="image"
-                                    onChange={(event) => {
-                                        setSelectedImage(event.target.files[0]);
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div> */}                      
+                    <div className="form-group">
+                        <label htmlFor="descripcion" className="primary">Link de imagen de la mascota:</label>
+                        <input type="text" name="descripcion" className="form-control" value={imagen}
+                            onChange={(e) => setImagen(e.target.value)}
+                            required
+                        />
+                    </div>                   
                     <button type="submit" className="btn btn-primary sticky-button">Editar evento</button>
                 </form>
             </div>

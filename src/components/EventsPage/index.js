@@ -42,7 +42,7 @@ const EventsPage = () => {
                             nombre={evento.nombre}
                             fecha={evento.fecha}
                             descripcion={evento.descripcion}
-                            imagen={"http://localhost:3030/"+evento.image}
+                            image={evento.image}
                             deleteEvent={deleteEvent}
                         />
                     )) 

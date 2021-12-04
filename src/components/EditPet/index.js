@@ -27,9 +27,6 @@ const EditPet = () => {
     }, [])
 
     const handleSubmit = () => {
-        
-        //const urlPut = `http://localhost:3030/api/editpet/id=${id}?nombre=${nombre}&descripcion=${descripcion}&edad=${edad}&sexo=${sexo}`;
-
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

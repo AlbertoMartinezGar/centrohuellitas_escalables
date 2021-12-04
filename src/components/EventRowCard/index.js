@@ -7,7 +7,7 @@ const EventRowCard = ({
     nombre,
     fecha,
     descripcion,
-    imagen,
+    image,
     deleteEvent
 }) => {
     return(
@@ -15,9 +15,9 @@ const EventRowCard = ({
             <div className="row m-0 p-0">
                 <div className="col-4 my-3 d-flex justify-content-center align-items-center">
                     {
-                    imagen.includes("undefined")
+                    image.includes("undefined")
                         ? (<i className="fas fa-paw paw-icon-row"></i>)
-                        : (<img src={imagen} className="imagen-row" alt="img"/>)
+                        : (<img src={image} className="imagen-row" alt="img"/>)
                     }
                 </div>
                 <div className="col-6 my-3">

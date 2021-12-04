@@ -8,7 +8,7 @@ const Homepage = () => {
     return(
         <>
             <Header />
-            <div className="container-fluid w-75">
+            <div className="container-fluid w-75 mb-5">
                 <InfoContainer category="eventos" />
                 <InfoContainer category="mascotas" />
                 <h1>Todas las secciones</h1>
@@ -19,9 +19,6 @@ const Homepage = () => {
                 <div className="row mt-3 d-flex justify-content-between">
                     <HomeSection name="Todos los eventos" route="/eventos"/>
                     <HomeSection name="Registrar nuevo evento" route="/agregarevento"/>
-                </div>
-                <div className="row mt-3 mb-5 d-flex justify-content-center">
-                    <HomeSection name="Pagos"/>
                 </div>
             </div>
             

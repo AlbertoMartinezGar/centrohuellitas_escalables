@@ -8,27 +8,21 @@ const CreateEvent = () => {
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagen, setImagen] = useState(null);
 
     //console.log(selectedImage);
 
     const handleSubmit = () => {
-        let TempPath = URL.createObjectURL(selectedImage);
-        var formdata = new FormData();
-        formdata.append("nombre", nombre);
-        formdata.append("fecha", fecha);
-        formdata.append("descripcion", descripcion);
-        if(selectedImage !== null){
-            formdata.append("image", selectedImage, TempPath+".jpg");
-        }   
-        else{
-            formdata.append("image", "no-image", "undefined");
-        }
-
-        var requestOptions = {
+        
+        const requestOptions = {
             method: 'POST',
-            body: formdata,
-            redirect: 'follow'
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "fecha": fecha,
+                "image": imagen
+            })
         };
 
         fetch("http://localhost:3030/api/addevent", requestOptions)
@@ -69,36 +63,12 @@ const CreateEvent = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="image" className="primary">Añade una imagen al evento</label>
-                        <div className="row">
-                            <div className="col-6 d-flex justify-content-center align-items-center">
-                                {selectedImage ? (
-                                    <div> 
-                                        <div className="row justify-content-center mb-3">
-                                            <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-                                        </div>
-                                        <div className="row justify-content-center">
-                                            <button 
-                                                onClick={()=>setSelectedImage(null)} 
-                                                className="btn btn-primary"
-                                            >
-                                                Remove
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : <h2>Preview de la imagen</h2>}
-                            </div>
-                            <div className="col-6 d-flex justify-content-center align-items-center">
-                                <input
-                                    type="file"
-                                    name="image"
-                                    onChange={(event) => {
-                                        setSelectedImage(event.target.files[0]);
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div>                      
+                        <label htmlFor="descripcion" className="primary">Link de imagen del evento:</label>
+                        <input type="text" name="descripcion" className="form-control"
+                            onChange={(e) => setImagen(e.target.value)}
+                            required
+                        />
+                    </div>                  
                     <button type="submit" className="btn btn-primary sticky-button">Agendar evento</button>
                 </form>
             </div>
