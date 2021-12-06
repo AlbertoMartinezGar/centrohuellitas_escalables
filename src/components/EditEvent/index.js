@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useEffect } from "react/cjs/react.development";
 import Header from "../Header";
 
 const EditEvent = () => {
@@ -74,9 +73,6 @@ const EditEvent = () => {
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
                         />
-                    </div>
-                    <div className="row mt-4 justify-content-center">
-                        <h4 className="primary">Por el momento no es posible editar la imagen :c</h4>
                     </div>
                     <div className="form-group">
                         <label htmlFor="descripcion" className="primary">Link de imagen de la mascota:</label>
