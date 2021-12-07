@@ -5,13 +5,11 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 
 app.use(require("./routes/pet.route"));
 app.use(require("./routes/event.route"));
-//app.use('/uploads', express.static('uploads'));
 
 const port = 3030;
 app.listen(port, () => {
